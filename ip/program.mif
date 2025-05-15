@@ -1,0 +1,31 @@
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+-- Address 0x200 (reset vector)
+080 : 00500093; -- addi x1, x0, 5      # x1 = 5
+081 : 00700113; -- addi x2, x0, 7      # x2 = 7
+082 : 002081b3; -- add x3, x1, x2      # x3 = x1 + x2 = 12
+083 : 00218233; -- add x4, x3, x2      # x4 = x3 + x2 = 19
+084 : 024182b3; -- mul x5, x3, x4      # x5 = x3 * x4 = 12 * 19 = 228
+085 : 00100313; -- addi x6, x0, 1      # x6 = 1
+086 : 00400393; -- addi x7, x0, 4      # x7 = 4
+087 : 00802023; -- sw x8, 0(x0)        # Store 0 to address 0
+088 : 00002403; -- lw x8, 0(x0)        # Load from address 0 to x8
+089 : 0000a763; -- bne x1, x0, 14      # Branch if x1 != 0 (should branch)
+-- If branch not taken (error case)
+08A : 00000013; -- addi x0, x0, 0      # NOP
+08B : 00000013; -- addi x0, x0, 0      # NOP
+-- Branch target (should arrive here)
+08C : 00000497; -- auipc x9, 0         # x9 = PC
+08D : 00c000ef; -- jal x1, 12          # Jump to 0x218 and set x1=0x090
+08E : 00000013; -- addi x0, x0, 0      # NOP
+08F : 00000013; -- addi x0, x0, 0      # NOP
+-- Function (should arrive here from JAL)
+090 : 00802223; -- sw x8, 4(x0)        # Store x8 to address 4
+091 : 00008067; -- jr x1                # Return to caller
+092 : 0000006f; -- j loop              # Infinite loop at end of program
+END;

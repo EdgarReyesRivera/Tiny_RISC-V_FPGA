@@ -1,0 +1,35 @@
+# Optimization settings for Quartus compilation
+# Add these to your project's .qsf file
+
+# Speed up compilation
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MINIMUM
+set_global_assignment -name PLACEMENT_EFFORT_MULTIPLIER 0.5
+set_global_assignment -name ROUTER_EFFORT_MULTIPLIER 0.5
+set_global_assignment -name OPTIMIZE_TIMING "NORMAL COMPILATION"
+
+# Reduce timing analysis overhead
+set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS OFF
+set_global_assignment -name TIMEQUEST_DO_REPORT_TIMING OFF
+set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL OFF
+
+# Reduce resource usage
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION OFF
+set_global_assignment -name AUTO_RAM_RECOGNITION OFF
+set_global_assignment -name AUTO_ROM_RECOGNITION OFF
+
+# Fitter options to reduce congestion
+set_global_assignment -name FITTER_AGGRESSIVE_ROUTABILITY_OPTIMIZATION ALWAYS
+set_global_assignment -name ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC OFF
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION OFF
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING OFF
+
+# Seed value for deterministic results
+set_global_assignment -name SEED 1
+
+# Disable unnecessary reports
+set_global_assignment -name ENABLE_DRC_SETTINGS OFF
+set_global_assignment -name POWER_USE_PVA OFF
+set_global_assignment -name POWER_DEFAULT_TOGGLE_RATE 12.5%
+set_global_assignment -name POWER_REPORT_SIGNAL_ACTIVITY OFF
+set_global_assignment -name POWER_REPORT_POWER_DISSIPATION OFF
