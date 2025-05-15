@@ -103,6 +103,7 @@ This project was developed as part of a computer architecture course assignment.
 ## License
 
 This project is licensed under the MIT License:
+
 MIT License
 
 Copyright (c) 2025 Edgar Reyes-Rivera
