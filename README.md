@@ -41,7 +41,7 @@ The design will begin execution from the reset vector (0x200) with the default p
 ## Creating Your Own Programs
 
 1. Write your RISC-V assembly code, using only the TinyRV1 instruction subset
-2. Use the conversion tool to generate a MIF file: python tools/asmToMif.py your_program.s your_program.mif
+2. Use the conversion tool to generate a MIF file:   python tools/asmToMif.py your_program.s your_program.mif
 3. Update the project to use your MIF file:
 - Either replace `ip/program.mif` with your file
 - Or update the reference in `instr_mem_ip.v` to point to your file
@@ -104,7 +104,9 @@ This project was developed as part of a computer architecture course assignment.
 
 This project is licensed under the MIT License:
 MIT License
+
 Copyright (c) 2025 Edgar Reyes-Rivera
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
