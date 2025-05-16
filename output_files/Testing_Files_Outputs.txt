@@ -1,0 +1,126 @@
+1. ADD Test
+File:
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+-- ADD test (starts at address 0x200 = word address 0x80)
+080 : 00500093; -- addi x1, x0, 5
+081 : 00700113; -- addi x2, x0, 7
+082 : 002081B3; -- add x3, x1, x2
+083 : 00218233; -- add x4, x3, x2
+084 : 003202B3; -- add x5, x4, x3
+085 : 0000006F; -- j end (loop to self)
+
+-- Rest of memory (up to 1024 words) initialized to 0
+[086..3FF] : 00000000;
+END;
+
+After execution:
+
+x1: 5
+x2: 7
+x3: 12 (x1 + x2 = 5 + 7)
+x4: 19 (x3 + x2 = 12 + 7)
+x5: 31 (x4 + x3 = 19 + 12)
+
+
+
+
+
+2. ADDI Test
+File:
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+-- ADDI test (starts at address 0x200 = word address 0x80)
+080 : 00A00093; -- addi x1, x0, 10
+081 : 00508113; -- addi x2, x1, 5
+082 : FFD10193; -- addi x3, x2, -3
+083 : 06418213; -- addi x4, x3, 100
+084 : 0000006F; -- j end (loop to self)
+
+-- Rest of memory (up to 1024 words) initialized to 0
+[085..3FF] : 00000000;
+END;
+
+After execution:
+
+x1: 10
+x2: 15 (x1 + 5)
+x3: 12 (x2 - 3)
+x4: 112 (x3 + 100)
+
+
+
+
+
+
+3. MUL Test
+File:
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+-- MUL test (starts at address 0x200 = word address 0x80)
+080 : 00300093; -- addi x1, x0, 3
+081 : 00500113; -- addi x2, x0, 5
+082 : 022081B3; -- mul x3, x1, x2
+083 : 02308233; -- mul x4, x3, x1
+084 : 0000006F; -- j end (loop to self)
+
+-- Rest of memory (up to 1024 words) initialized to 0
+[085..3FF] : 00000000;
+END;
+
+After execution:
+
+x1: 3
+x2: 5
+x3: 15 (x1 * x2 = 3 * 5)
+x4: 45 (x3 * x1 = 15 * 3)
+
+
+
+
+
+
+4. LW/SW Test
+File:
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+-- LW/SW test (starts at address 0x200 = word address 0x80)
+080 : 02A00093; -- addi x1, x0, 42
+081 : 00102023; -- sw x1, 0(x0)
+082 : 00000013; -- addi x0, x0, 0 (NOP)
+083 : 00000013; -- addi x0, x0, 0 (NOP)
+084 : 00002103; -- lw x2, 0(x0)
+085 : 0000006F; -- j end (loop to self)
+
+-- Rest of memory (up to 1024 words) initialized to 0
+[086..3FF] : 00000000;
+END;
+
+After execution:
+
+x1: 0 (after being cleared)
+x2: 42 (loaded from memory address 0)
+
+Memory state:
+
+Address 0: Value 42
