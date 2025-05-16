@@ -25,7 +25,7 @@ This repository contains a Verilog implementation of the TinyRV1 RISC-V processo
 1. Clone this repository
 2. Connect your DE1-SoC board via USB
 3. Open Quartus Programmer
-4. Program your FPGA with `output_files/DE1_SoC.sof`
+4. Program your FPGA one of the .sof files, the expected outputs for each .sof is in the 'output_files/Test_Files_Outputs.txt'
 
 The design will begin execution from the reset vector (0x200) with the default program.
 
